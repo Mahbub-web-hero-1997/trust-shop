@@ -2,14 +2,31 @@
     width: 80%;
     display: grid;
     grid-template-columns: repeat(2,1fr);
+    gap: 15px;
     margin: auto;
-    background: gray;
+    background: #000;
     padding: 15px;
+    border-radius: 10px;
+    color: white;
 }
-.question_One {
-   background: #000;
+.h1{
+    text-align: center;
+}
+.question_One {   
+   padding: 15px;
+   border-radius: 10px;
 }
 .question_One h3{
     margin: auto;
     text-align: center;
+    color: white;
+}
+.question_Two {   
+   padding: 15px;
+   border-radius: 10px;
+}
+.question_Two h3{
+    margin: auto;
+    text-align: center;
+    color: white;
 }
