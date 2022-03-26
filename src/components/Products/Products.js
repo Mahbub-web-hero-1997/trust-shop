@@ -2,16 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product'
 import './Products.css'
-
+const GetToLocalStorag = () => JSON.parse(localStorage.getItem('WatchCart')) || '[]';
 // Products Component
 const Products = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(GetToLocalStorag);
 
     const addToCart = (product) => {
         const newCart = [...cart, product]
         setCart(newCart);
     }
+    useEffect(() => {
+        localStorage.setItem('WatchCart', JSON.stringify(cart))
+    }, [cart])
     const clearCartItem = () => {
         const newCart = [];
         setCart(newCart)
@@ -20,10 +23,13 @@ const Products = () => {
         const addedCart = cart.length;
         const randomNumber = Math.round(Math.random() * addedCart)
         const newRandomNumber = cart[randomNumber]
+        console.log(newRandomNumber);
         const newCart = cart.filter(product => product.id !== newRandomNumber.id)
+        console.log(newCart);
         for (const item of newCart) {
             cart.splice(item, 1)
-            const newItem = [...cart]
+            let newItem = [...cart]
+            console.log(newItem);
             setCart(newItem);
         }
 
@@ -56,7 +62,7 @@ const Products = () => {
                     )
                 }
                 <button onClick={clearCartItem}>Clear</button>
-                <button onClick={randomSelect}> Random</button>
+                <button onClick={() => randomSelect()}> Random</button>
             </div>
         </div >
     );
