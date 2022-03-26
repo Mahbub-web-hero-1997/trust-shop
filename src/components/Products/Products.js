@@ -7,16 +7,26 @@ import './Products.css'
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const [clear, setClear] = useState();
+
     const addToCart = (product) => {
         const newCart = [...cart, product]
         setCart(newCart);
     }
-
     const clearCartItem = () => {
-        const clearCart = [];
-        const newClearCart = [clear, clearCart]
-        setClear(newClearCart)
+        const newCart = [];
+        setCart(newCart)
+    }
+    const randomSelect = () => {
+        const addedCart = cart.length;
+        const randomNumber = Math.round(Math.random() * addedCart)
+        const newRandomNumber = cart[randomNumber]
+        const newCart = cart.filter(product => product.id !== newRandomNumber.id)
+        for (const item of newCart) {
+            cart.splice(item, 1)
+            const newItem = [...cart]
+            setCart(newItem);
+        }
+
     }
     // Fetch Data From JSON File
     useEffect(() => {
@@ -41,11 +51,12 @@ const Products = () => {
             <div className='cart'>
                 <h4>Add Watch</h4>
                 {
-                    cart && cart.map(item =>
+                    cart.map(item =>
                         <h4>name:{item.name}</h4>
                     )
                 }
-                <button onClick={() => { clearCartItem(clear) }}>Clear</button>
+                <button onClick={clearCartItem}>Clear</button>
+                <button onClick={randomSelect}> Random</button>
             </div>
         </div >
     );
